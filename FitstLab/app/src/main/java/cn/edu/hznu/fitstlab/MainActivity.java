@@ -59,12 +59,37 @@ public class MainActivity extends AppCompatActivity {
                 /*Intent intent = new Intent("com.edu.hznu.firstlab.ACTION_START");
                 intent.addCategory("com.edu.hznu.firstlab.MY_CATEGORY");
                 startActivity(intent);*/
-                Intent intent = new Intent (Intent.ACTION_VIEW);
+                //隐式Intent调用系统浏览器
+                /*Intent intent = new Intent (Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("http://www.baidu.com"));
-                startActivity(intent);
+                startActivity(intent);*/
+
+                //向下一个活动传递数据
+                /*String data = "Hello SecondActivity";
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                intent.putExtra("extra_data",data);
+                startActivity(intent);*/
+
+                //返回数据给上一个活动
+                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                startActivityForResult(intent,1);
+
             }
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                if(resultCode == RESULT_OK){
+                    String returnedData = data.getStringExtra("data_return");
+                    Log.d("FirstActivity",returnedData);
+                }
+                break;
+            default:
+        }
     }
 }
