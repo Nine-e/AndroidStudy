@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.addCategory("com.edu.hznu.firstlab.MY_CATEGORY");
                 startActivity(intent);*/
                 //隐式Intent调用系统浏览器
-                /*Intent intent = new Intent (Intent.ACTION_VIEW);
+                Intent intent = new Intent (Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("http://www.baidu.com"));
-                startActivity(intent);*/
+                startActivity(intent);
 
                 //向下一个活动传递数据
                 /*String data = "Hello SecondActivity";
@@ -71,8 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);*/
 
                 //返回数据给上一个活动
-                Intent intent = new Intent(MainActivity.this,SecondActivity.class);
-                startActivityForResult(intent,1);
+                /*Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+                startActivityForResult(intent,1);*/
+
+                /*Intent intent = new Intent (Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:10086"));
+                startActivity(intent);*/
 
             }
         });
