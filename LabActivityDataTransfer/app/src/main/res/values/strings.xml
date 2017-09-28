@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LabActivityDataTransfer</string>
+    <string name="headText">请输入您的注册信息</string>
+    <string name="userName">用户名：</string>
+    <string name="userNameExplain">请填写想注册的账号</string>
+    <string name="password">密码</string>
+    <string name="genter">性别</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="register">注册</string>
+    <string name="returnText">返回</string>
+</resources>
