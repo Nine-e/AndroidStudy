@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         //create SQLite
         dbHelper = new MyDatabaseHelper(this,"PhoneBook.db",null,1);
-        dbHelper.getWritableDatabase();
+        dbHelper.getReadableDatabase();
 
         //ListView
         initPhoneNumber();
