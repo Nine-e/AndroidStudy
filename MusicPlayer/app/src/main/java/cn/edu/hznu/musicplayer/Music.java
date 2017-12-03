@@ -12,8 +12,9 @@ public class Music {
     private String url;
     private int duration;
     private long size;
+    private int index;
 
-    public Music(int id,String title,String album,String artist,String url,int duration,long size){
+    public Music(int id,String title,String album,String artist,String url,int duration,long size,int index){
         this.id = id;
         this.title = title;
         this.album = album;
@@ -21,6 +22,7 @@ public class Music {
         this.url = url;
         this.duration = duration;
         this.size = size;
+        this.index = index;
     }
 
     public int getId() {
@@ -50,4 +52,5 @@ public class Music {
     public long getSize() {
         return size;
     }
+    public int getIndex() {return index;}
 }
