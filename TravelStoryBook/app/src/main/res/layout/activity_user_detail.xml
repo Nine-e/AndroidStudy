@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+        <ImageView
+            android:id="@+id/user_detail_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="#888"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/user_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+        <Button
+            android:id="@+id/user_detail_button"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:text="登录"/>
+        <Button
+            android:id="@+id/user_detail_star"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="我的收藏>"/>
+        <ListView
+            android:id="@+id/user_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/add_story_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text=" + 添加游记"/>
+</LinearLayout>
