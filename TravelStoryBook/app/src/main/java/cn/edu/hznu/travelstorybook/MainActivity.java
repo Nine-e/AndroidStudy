@@ -1,16 +1,21 @@
 package cn.edu.hznu.travelstorybook;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -20,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Story> storyBriefList = new ArrayList<>();
     //private String[] data = {"Apple","bananana"};
+    private MyDatabaseHelper dbHelper;
+    private String get_num;
+    private StoryBriefAdapter adapter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,19 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        adapter = new StoryBriefAdapter(MainActivity.this,R.layout.story_brief_item,storyBriefList);
+        listView = (ListView)findViewById(R.id.main_list_view);
+
+        //创建数据库
+        dbHelper = new MyDatabaseHelper(this,"StoryBook.db",null,1);
+        dbHelper.getWritableDatabase();
+
+        Intent intent = getIntent();
+        get_num = intent.getStringExtra("user_num");
+
+        //deleteData();
+        //addData();
+
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(
          //       MainActivity.this,android.R.layout.simple_list_item_1,data);
 
@@ -48,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                intent.putExtra("user_num",get_num);
                 startActivity(intent);
             }
         });
@@ -58,26 +81,100 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,UserDetailActivity.class);
+                intent.putExtra("user_num",get_num);
                 startActivity(intent);
             }
         });
 
         //初始化ListView
-        initStoryBrief();
-        StoryBriefAdapter adapter = new StoryBriefAdapter(MainActivity.this,R.layout.story_brief_item,storyBriefList);
-        ListView listView = (ListView)findViewById(R.id.main_list_view);
+        //initStoryBrief();
+        queryData();
         listView.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(listView);
+
         //ListView点击事件
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Story story = storyBriefList.get(position);
                 Intent intent = new Intent(MainActivity.this,StoryDetailActivity.class);
+                //传递数据
+                intent.putExtra("user_num",get_num);
+                intent.putExtra("story_id",story.getStory_id());
                 startActivity(intent);
             }
         });
     }
-    private void initStoryBrief(){
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        queryData();
+        listView.setAdapter(adapter);
+        setListViewHeightBasedOnChildren(listView);
+    }
+
+    /* private void addData(){
+            //添加数据
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            //第一条数据
+            values.put("story_title","title-1");
+            values.put("story_content","content-1");
+            values.put("story_img_id",R.drawable.story_img);
+            values.put("story_date","2017-01-01");
+            values.put("story_author_id",1);
+            values.put("story_author_name","name-1");
+            values.put("story_star_count",0);
+            db.insert("Story",null,values);
+            //第二条数据
+            values.put("story_title","title-2");
+            values.put("story_content","content-2");
+            values.put("story_img_id",R.drawable.story_img);
+            values.put("story_date","2017-01-02");
+            values.put("story_author_id",2);
+            values.put("story_author_name","name-2");
+            values.put("story_star_count",0);
+            db.insert("Story",null,values);
+
+            Log.d("Database","add init success");
+        }
+    */
+    private void queryData(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        storyBriefList.clear();
+        //查询Story表中的所有数据
+        Cursor cursor = db.query("Story",null,null,null,null,null,"story_star_count desc");
+        if(cursor.moveToFirst()){
+            do{
+                //遍历Cursor对象，取出数据并打印
+                int id = cursor.getInt(cursor.getColumnIndex("story_id"));
+                String title = cursor.getString(cursor.getColumnIndex("story_title"));
+                String content = cursor.getString(cursor.getColumnIndex("story_content"));
+                int img_id = cursor.getInt(cursor.getColumnIndex("story_img_id"));
+                String date = cursor.getString(cursor.getColumnIndex("story_date"));
+                int author_id = cursor.getInt(cursor.getColumnIndex("story_author_id"));
+                String author_name = cursor.getString(cursor.getColumnIndex("story_author_name"));
+                int star_count = cursor.getInt(cursor.getColumnIndex("story_star_count"));
+                Log.d("MainActivity Story",title);
+                /*Log.d("MainActivity Story",content);
+                Log.d("MainActivity Story",date);
+                Log.d("MainActivity Story",author_name);*/
+                Log.d("MainActivity starCount",star_count+"");
+                Story story = new Story(id,img_id,title,content,date,author_name,author_id,star_count);
+                storyBriefList.add(story);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+    }
+    private void deleteData(){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        //删除Story表中的所有数据
+        db.delete("Story",null,null);
+    }
+
+    /*private void initStoryBrief(){
         for (int i=0;i<5;i++){
             Story story = new Story(i,R.drawable.story_img,
                     "年末 | 12月活动推荐",
@@ -86,5 +183,22 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity",story.getStory_author());
             storyBriefList.add(story);
         }
-    }
+    }*/
+    //计算ListView高度
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+               ListAdapter listAdapter = listView.getAdapter();
+               if (listAdapter == null) {
+                        return;
+                   }
+               int totalHeight = 0;
+               for (int i = 0; i < listAdapter.getCount(); i++) {
+                        View listItem = listAdapter.getView(i, null, listView);
+                        listItem.measure(0, 0);
+                        totalHeight += listItem.getMeasuredHeight();
+                    }
+                    ViewGroup.LayoutParams params = listView.getLayoutParams();
+                    params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        Log.d("MainActivity","params:"+params.height);
+        listView.setLayoutParams(params);
+        }
 }

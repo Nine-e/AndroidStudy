@@ -12,8 +12,17 @@ public class Story {
     private String story_date;
     private String story_author;
     private int story_author_id;
+    private int story_star_count;
 
-    public Story(int story_id, int story_img_id, String story_title, String story_content, String story_date, String story_author, int story_author_id) {
+    public int getStory_star_count() {
+        return story_star_count;
+    }
+
+    public void setStory_star_count(int story_star_count) {
+        this.story_star_count = story_star_count;
+    }
+
+    public Story(int story_id, int story_img_id, String story_title, String story_content, String story_date, String story_author, int story_author_id, int story_star_count) {
         this.story_id = story_id;
         this.story_img_id = story_img_id;
         this.story_title = story_title;
@@ -21,6 +30,7 @@ public class Story {
         this.story_date = story_date;
         this.story_author = story_author;
         this.story_author_id = story_author_id;
+        this.story_star_count = story_star_count;
     }
 
     public int getStory_id() {
