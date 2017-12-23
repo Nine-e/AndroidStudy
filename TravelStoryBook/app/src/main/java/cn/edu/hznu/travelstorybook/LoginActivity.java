@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText numberET;
     private EditText passwordET;
     private Button loginBtn;
+    private Button signBtn;
 
     private int number;
     private String password;
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         numberET = (EditText)findViewById(R.id.login_number_edit);
         passwordET = (EditText)findViewById(R.id.login_password_edit);
         loginBtn = (Button)findViewById(R.id.login_button);
+        signBtn = (Button)findViewById(R.id.login_sign_button);
         user = null;
 
         //连接数据库
@@ -116,6 +118,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this,UserDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+        //注册 按钮点击事件
+        signBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,SignActivity.class);
                 startActivity(intent);
             }
         });
