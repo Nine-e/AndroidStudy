@@ -26,6 +26,8 @@ public class StoryBriefAdapter extends ArrayAdapter<Story> {
     @Override
     public View getView(int position, View convertView,  ViewGroup parent) {
         Story story = getItem(position);
+        String briefContent = "";
+        String content = story.getStory_content();
         View view = LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
         ImageView storyImage = (ImageView) view.findViewById(R.id.story_brief_image);
         TextView storyTitle = (TextView)view.findViewById(R.id.story_brief_title);
@@ -35,9 +37,15 @@ public class StoryBriefAdapter extends ArrayAdapter<Story> {
 
         storyImage.setImageResource(story.getStory_img_id());
         storyTitle.setText(story.getStory_title());
-        storyContent.setText(story.getStory_content());
+        //storyContent.setText(story.getStory_content().substring(0,20)+"...");
         storyDate.setText(story.getStory_date());
         storyAuthor.setText(story.getStory_author());
+
+        if (content.length()<=15){
+            storyContent.setText(content);
+        }else {
+            storyContent.setText(content.substring(0,15)+"...");
+        }
 
         return view;
     }

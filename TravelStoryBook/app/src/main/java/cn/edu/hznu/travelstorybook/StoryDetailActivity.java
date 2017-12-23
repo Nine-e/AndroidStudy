@@ -27,7 +27,7 @@ public class StoryDetailActivity extends AppCompatActivity {
     int story_id;
     private String get_num;
     private User user;
-    private int user_id;
+    private User author;
     private int star_id;
 
     private ImageButton closeBtn;
@@ -53,6 +53,8 @@ public class StoryDetailActivity extends AppCompatActivity {
             localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
         }
         setContentView(R.layout.activity_story_detail);
+
+        Log.d("Author","onCreate");
 
         story_img = (ImageView)findViewById(R.id.story_detail_img);
         title = (TextView)findViewById(R.id.story_detail_title);
@@ -132,17 +134,19 @@ public class StoryDetailActivity extends AppCompatActivity {
                 int img_id = cursor.getInt(cursor.getColumnIndex("story_img_id"));
                 String date = cursor.getString(cursor.getColumnIndex("story_date"));
                 int author_id = cursor.getInt(cursor.getColumnIndex("story_author_id"));
+                Log.d("Author id",author_id+"");
                 String author_name = cursor.getString(cursor.getColumnIndex("story_author_name"));
                 int star_count = cursor.getInt(cursor.getColumnIndex("story_star_count"));
                 story = new Story(id,img_id,title,content,date,author_name,author_id,star_count);
             }while (cursor.moveToNext());
         }
+        getAuthor();
         Log.d("StoryDetail",""+story.getStory_id());
         Log.d("StoryDetail",""+story.getStory_title());
         story_img.setImageResource(story.getStory_img_id());
         title.setText(story.getStory_title());
         content.setText(story.getStory_content());
-        author_img.setImageResource(user.getUser_img_id());
+        author_img.setImageResource(author.getUser_img_id());
         author_name.setText(story.getStory_author());
     }
 
@@ -166,6 +170,32 @@ public class StoryDetailActivity extends AppCompatActivity {
                 Log.d("UserStar img_id",""+img_id);
                 user = new User(id,number,password,name,sex,img_id);
             }while (cursor.moveToNext());
+        }
+    }
+    private void getAuthor(){
+        Log.d("Author","ing");
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.query("User",null,"user_id = ? ",new String[]{String.valueOf(story.getStory_author_id())},null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                //遍历Cursor对象，取出数据并打印
+                int id = cursor.getInt(cursor.getColumnIndex("user_id"));
+                Log.d("Author",""+id);
+                String number = cursor.getString(cursor.getColumnIndex("user_number"));
+                Log.d("Author number",""+number);
+                String password = cursor.getString(cursor.getColumnIndex("user_password"));
+                Log.d("Author password",""+password);
+                String name = cursor.getString(cursor.getColumnIndex("user_name"));
+                Log.d("Author name",""+name);
+                String sex = cursor.getString(cursor.getColumnIndex("user_sex"));
+                Log.d("Author sex",sex);
+                int img_id = cursor.getInt(cursor.getColumnIndex("user_img_id"));
+                Log.d("Author img_id",""+img_id);
+                author = new User(id,number,password,name,sex,img_id);
+            }while (cursor.moveToNext());
+        }
+        if(author==null){
+            Log.d("Author","null");
         }
     }
     private void getStared(){

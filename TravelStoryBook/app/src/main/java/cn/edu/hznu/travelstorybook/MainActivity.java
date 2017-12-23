@@ -61,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
         //deleteData();
         //addData();
 
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-         //       MainActivity.this,android.R.layout.simple_list_item_1,data);
-
         //搜索按钮点击事件
         ImageButton searchBtn = (ImageButton)findViewById(R.id.main_search_button);
         searchBtn.setOnClickListener(new View.OnClickListener(){
@@ -115,32 +112,6 @@ public class MainActivity extends AppCompatActivity {
         setListViewHeightBasedOnChildren(listView);
     }
 
-    /* private void addData(){
-            //添加数据
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            //第一条数据
-            values.put("story_title","title-1");
-            values.put("story_content","content-1");
-            values.put("story_img_id",R.drawable.story_img);
-            values.put("story_date","2017-01-01");
-            values.put("story_author_id",1);
-            values.put("story_author_name","name-1");
-            values.put("story_star_count",0);
-            db.insert("Story",null,values);
-            //第二条数据
-            values.put("story_title","title-2");
-            values.put("story_content","content-2");
-            values.put("story_img_id",R.drawable.story_img);
-            values.put("story_date","2017-01-02");
-            values.put("story_author_id",2);
-            values.put("story_author_name","name-2");
-            values.put("story_star_count",0);
-            db.insert("Story",null,values);
-
-            Log.d("Database","add init success");
-        }
-    */
     private void queryData(){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         storyBriefList.clear();
@@ -158,9 +129,6 @@ public class MainActivity extends AppCompatActivity {
                 String author_name = cursor.getString(cursor.getColumnIndex("story_author_name"));
                 int star_count = cursor.getInt(cursor.getColumnIndex("story_star_count"));
                 Log.d("MainActivity Story",title);
-                /*Log.d("MainActivity Story",content);
-                Log.d("MainActivity Story",date);
-                Log.d("MainActivity Story",author_name);*/
                 Log.d("MainActivity starCount",star_count+"");
                 Story story = new Story(id,img_id,title,content,date,author_name,author_id,star_count);
                 storyBriefList.add(story);
@@ -174,16 +142,6 @@ public class MainActivity extends AppCompatActivity {
         db.delete("Story",null,null);
     }
 
-    /*private void initStoryBrief(){
-        for (int i=0;i<5;i++){
-            Story story = new Story(i,R.drawable.story_img,
-                    "年末 | 12月活动推荐",
-                    "2017年的最后一个月，哪些演出值得一看，哪些展览不容错过？",
-                    "2017-12-12","游记编辑部",10+i);
-            Log.d("MainActivity",story.getStory_author());
-            storyBriefList.add(story);
-        }
-    }*/
     //计算ListView高度
     public static void setListViewHeightBasedOnChildren(ListView listView) {
                ListAdapter listAdapter = listView.getAdapter();

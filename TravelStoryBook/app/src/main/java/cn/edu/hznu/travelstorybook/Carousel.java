@@ -32,8 +32,8 @@ public class Carousel extends FrameLayout {
     //存放圆点的ImageView
     private List<ImageView> mDotsIV;
     //待显示图片的资源ID
-    private int[] mDrawableIds = {R.drawable.lunbo_3, R.drawable.lunbo_3, R.drawable.lunbo_3,
-            R.drawable.lunbo_3, R.drawable.lunbo_3};
+    private int[] mDrawableIds = {R.drawable.lunbo_1, R.drawable.lunbo_2, R.drawable.lunbo_3,
+            R.drawable.lunbo_4, R.drawable.lunbo_5};
     private ViewPager mVP;
     private boolean isAutoPlay;
     private int currentItem;

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 
@@ -74,6 +75,11 @@ public class AddStoryActivity extends AppCompatActivity {
                 Log.d("Add send","success");
                 String title = titleET.getText().toString();
                 String content = contentET.getText().toString();
+
+                if(title.length()>20){
+                    Toast.makeText(AddStoryActivity.this, "标题不能超过20字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
