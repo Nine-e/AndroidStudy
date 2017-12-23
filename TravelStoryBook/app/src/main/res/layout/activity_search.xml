@@ -76,7 +76,7 @@ android:layout_height="match_parent">
             android:layout_width="65dp"
             android:layout_marginRight="@dimen/story_brief_padding_right"
             android:background="@drawable/shape_button"
-            android:text="韩国"/>
+            android:text="印度"/>
         <Button
             android:id="@+id/search_hot_button2"
             android:layout_height="35dp"
@@ -90,7 +90,7 @@ android:layout_height="match_parent">
             android:layout_width="65dp"
             android:layout_marginRight="@dimen/story_brief_padding_right"
             android:background="@drawable/shape_button"
-            android:text="新加坡"/>
+            android:text="柬埔寨"/>
     </LinearLayout>
 
     <ListView

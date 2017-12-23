@@ -22,6 +22,8 @@ public class AddStoryActivity extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
     private String get_num;
     private User user;
+    private int t;
+    private int img_id = R.drawable.story_img;
 
     private ImageButton backBtn;
     private ImageButton sendBtn;
@@ -88,9 +90,18 @@ public class AddStoryActivity extends AppCompatActivity {
                 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
                 String date=sdf.format(new java.util.Date());
 
+                t = (int)(Math.random()*20);
+                if(t%3 == 0){
+                    img_id = R.drawable.story_img_01;
+                }else if(t%3 == 1){
+                    img_id = R.drawable.story_img_02;
+                }else if(t%3 == 2){
+                    img_id = R.drawable.story_img_03;
+                }
+
                 values.put("story_title",title);
                 values.put("story_content",content);
-                values.put("story_img_id",R.drawable.story_img);
+                values.put("story_img_id",img_id);
                 values.put("story_date",date);
                 values.put("story_author_id",user.getUser_id());
                 values.put("story_author_name",user.getUser_name());

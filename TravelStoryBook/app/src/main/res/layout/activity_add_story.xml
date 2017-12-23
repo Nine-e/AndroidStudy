@@ -39,6 +39,8 @@
         android:id="@+id/add_title_edit"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:paddingLeft="@dimen/bar_padding_left"
+        android:paddingRight="@dimen/bar_padding_right"
         android:hint="请输入标题"
         android:textCursorDrawable="@drawable/cursor_color"
         android:background="@null"/>
@@ -53,6 +55,8 @@
         android:id="@+id/add_content_edit"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:paddingLeft="@dimen/bar_padding_left"
+        android:paddingRight="@dimen/bar_padding_right"
         android:hint="帖子内容..."
         android:textCursorDrawable="@drawable/cursor_color"
         android:background="@null"/>
