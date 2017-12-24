@@ -12,4 +12,6 @@
     <dimen name="story_brief_padding_right">10dp</dimen>
     <dimen name="story_brief_padding_top">5dp</dimen>
     <dimen name="story_brief_padding_buttom">5dp</dimen>
+    <dimen name="bar_image_button_width">50dp</dimen>
+    <dimen name="bar_image_button_height">50dp</dimen>
 </resources>

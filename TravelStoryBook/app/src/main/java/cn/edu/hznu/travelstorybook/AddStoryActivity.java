@@ -82,6 +82,10 @@ public class AddStoryActivity extends AppCompatActivity {
                     Toast.makeText(AddStoryActivity.this, "标题不能超过20字", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(title.length()==0 || content.length()==0){
+                    Toast.makeText(AddStoryActivity.this, "标题与内容不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
